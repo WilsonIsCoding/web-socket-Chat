@@ -26,6 +26,10 @@
 
 <img width="256" alt="截圖 2023-12-22 下午5 12 42" src="https://github.com/WilsonIsCoding/web-socket-Chat/assets/145327952/a33acdf2-69a0-4549-a459-708411e27201">
 
+你也可以修改上面的名字(default是anonymous），但同名自也不會出錯，因為畫面渲染是認ID的！！！
+
+<img width="435" alt="截圖 2023-12-22 下午5 16 31" src="https://github.com/WilsonIsCoding/web-socket-Chat/assets/145327952/33137e7e-656d-468d-9ca3-4a893d0d0c84">
+
 開啟兩個分頁來玩玩看對話視窗！
 
 <img width="1379" alt="截圖 2023-12-22 下午5 14 58" src="https://github.com/WilsonIsCoding/web-socket-Chat/assets/145327952/0003d89a-4597-4290-85a5-8e8a067c986a">
