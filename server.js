@@ -1,5 +1,5 @@
 const express = require("express");
-const ServerSocket = require("ws").Server; // 引用 Server
+const ServerSocket = require("ws").Server;
 
 const PORT = 8080;
 
@@ -15,11 +15,13 @@ const wss = new ServerSocket({ server });
 wss.on("connection", (ws, req) => {
   ws.id = req.headers["sec-websocket-key"].substring(0, 8);
   userName = req.url.split("?")[1];
-  ws.send(ws.id);
+  let clients = wss.clients;
+  clients.forEach((client) => {
+    client.send(JSON.stringify({ id: ws.id, totalUser: clients.size }));
+  });
   ws.on("message", (data) => {
     const parsedData = JSON.parse(data);
     parsedData.id = ws.id;
-    let clients = wss.clients;
     clients.forEach((client) => {
       client.send(JSON.stringify(parsedData));
     });
@@ -28,5 +30,9 @@ wss.on("connection", (ws, req) => {
   // Connection closed
   ws.on("close", () => {
     console.log("[Close connected]");
+    let clients = wss.clients;
+    clients.forEach((client) => {
+      client.send(JSON.stringify({ totalUser: clients.size }));
+    });
   });
 });

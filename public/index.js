@@ -1,6 +1,7 @@
 var ws;
 const messageContainer = document.getElementById("message-container");
 const messageInput = document.querySelector("#sendMsg");
+const clientsTotal = document.getElementById("client-total");
 let nameInput;
 let userId;
 // 監聽 click 事件
@@ -8,20 +9,22 @@ document.querySelector("#connect")?.addEventListener("click", (e) => {
   connect();
 });
 function connect() {
+  if(userId)return
   nameInput = document.querySelector("#name-input");
   ws = new WebSocket(`ws://localhost:8080`);
   ws.onopen = () => {
     console.log("[open connection]");
     ws.onmessage = (event) => {
-      console.log(event);
-      if (event.data[0] == "{") {
-        const data = JSON.parse(event.data);
-        if (data.id !== userId) {
-          addMessageToUI(false, data);
+      const data = JSON.parse(event.data);
+      if (data.totalUser) {
+        if (!userId) {
+          userId = data.id;
         }
-      } else {
-        userId = event.data;
-        console.log(userId);
+        clientsTotal.innerText = `Total Clients: ${data.totalUser}`;
+        return;
+      } else if (data.id !== userId) {
+        addMessageToUI(false, data);
+        return;
       }
     };
   };
@@ -72,6 +75,9 @@ function clearFeedback() {
   });
 }
 function disconnect() {
+  ws.onclose = (event) => {
+    console.log("[close connection]");
+    clientsTotal.innerText = `You are out lined~`;
+  };
   ws.close();
-  ws.onclose = () => console.log("[close connection]");
 }
