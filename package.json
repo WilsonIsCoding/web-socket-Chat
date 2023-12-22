@@ -1,0 +1,21 @@
+{
+  "name": "websocket_pratice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "http": "^0.0.1-security",
+    "nodemon": "^3.0.2",
+    "path": "^0.12.7",
+    "socket.io": "^4.7.2",
+    "ws": "^8.15.1"
+  }
+}
